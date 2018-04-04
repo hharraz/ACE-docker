@@ -14,7 +14,7 @@ A pre-built version of the stand-alone IIB image is available on Docker Hub as [
 
   * `10.0.0.11`, `latest` ([Dockerfile](https://github.com/ot4i/iib-docker/blob/master/10.0.0.11/iib/Dockerfile))
   * `10.0.0.10` ([Dockerfile](https://github.com/ot4i/iib-docker/blob/master/10.0.0.10/Dockerfile))
-  
+
 A pre-built version of the IIB with MQ Server image is available on Docker Hub as [`ibmcom/iib-mq-server`](https://hub.docker.com/r/ibmcom/iib-mq-server/) with the following tags:
 
   * `10.0.0.11`, `latest` ([Dockerfile](https://github.com/ot4i/iib-docker/blob/master/10.0.0.11/iib-mq-server/Dockerfile))
@@ -22,22 +22,22 @@ A pre-built version of the IIB with MQ Server image is available on Docker Hub a
 # Building the image
 
 The image can be built using standard [Docker commands](https://docs.docker.com/userguide/dockerimages/) against the supplied Dockerfile.  For example:
-
+<work in progress>
 ~~~
-cd 10.0.0.11/iib
-docker build -t iibv10image .
+cd 11.0.0.0/ace
+docker build -t acev11image .
 ~~~
 
-This will create an image called `iibv10image` occupying approximately 1.15GB of space (including the size of the underlying Ubuntu base image) in your local Docker registry:
+This will create an image called `acev11image` occupying approximately 1.15GB of space (including the size of the underlying Ubuntu base image) in your local Docker registry:
 
 ~~~
 REPOSITORY     TAG       IMAGE ID        CREATED          SIZE
-iibv10image    latest    b8403ecfcd0d    2 seconds ago    1.15GB
+acev11image    latest    b8403ecfcd0d    2 seconds ago    1.15GB
 ubuntu         14.04     132b7427a3b4    3 weeks ago      188MB
 ~~~
 
 If you wish to build the image with an MQ install, then run something like the following:
-
+<work in progress>
 ~~~
 cd 10.0.0.11/iib-mq-server
 docker build -t iib-mq-image .
@@ -45,7 +45,7 @@ docker build -t iib-mq-image .
 
 # What the image contains
 
-The built image contains a full installation of [IBM Integration Bus for Developers Edition V10.0](https://ibm.biz/iibdevedn). If you install the stand-alone image, which does not contain an installation of IBM MQ, some functionality may not be available, or may be changed - see this [topic](http://www-01.ibm.com/support/knowledgecenter/SSMKHH_10.0.0/com.ibm.etools.mft.doc/bb28660_.htm) for more information.
+The built image contains a full installation of [IBM App Connect Enterprise V11](https://ibm.biz/iibdevedn). If you install the stand-alone image, which does not contain an installation of IBM MQ, some functionality may not be available, or may be changed - see this [topic](http://www-01.ibm.com/support/knowledgecenter/SSMKHH_10.0.0/com.ibm.etools.mft.doc/bb28660_.htm) for more information.
 
 # Running a container
 
@@ -67,7 +67,7 @@ docker run --name myNode -e LICENSE=accept -e NODENAME=MYNODE -e SERVERNAME=MYSE
 
 If you wish, you can also deploy an IBM Integration Bus BAR file by specifying a [Docker volume](https://docs.docker.com/engine/admin/volumes/volumes/) which makes the BAR file(s) available when the container is started:
 ~~~
-docker run --name myNode -v  /local/path/to/BARs:/tmp/BARs/<yourbars> -e LICENSE=accept -e NODENAME=MYNODE -e SERVERNAME=MYSERVER -P iibv10image 
+docker run --name myNode -v  /local/path/to/BARs:/tmp/BARs/<yourbars> -e LICENSE=accept -e NODENAME=MYNODE -e SERVERNAME=MYSERVER -P iibv10image
 ~~~
 
 This will run a container that creates and starts an Integration Node called `MYNODE` and exposes ports `4414` and `7800` on random ports on the host machine.  At this point you can use:

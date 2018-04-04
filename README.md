@@ -1,3 +1,6 @@
+<This is a clone from V10 instructions, please do not follow as it's a work in progress>
+
+
 # Overview
 
 This repository contains a Dockerfile and some scripts which demonstrate a way in which you might run [IBM Integration Bus](http://www-03.ibm.com/software/products/en/ibm-integration-bus) in a [Docker](https://www.docker.com/whatisdocker/) container.

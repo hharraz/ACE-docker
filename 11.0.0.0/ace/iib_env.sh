@@ -1,5 +1,5 @@
 #!/bin/bash
-# © Copyright IBM Corporation 2018.
+# © Copyright IBM Corporation 2015.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v1.0
@@ -8,5 +8,5 @@
 
 if [ -z "$MQSI_VERSION" ]; then
   echo "Sourcing profile"
-  source /opt/ibm/iib-10.0.0.11/server/bin/mqsiprofile
+  source /opt/ibm/ace-11.0.0.0/server/bin/mqsiprofile
 fi

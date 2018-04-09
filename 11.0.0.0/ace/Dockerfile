@@ -9,7 +9,7 @@ FROM ubuntu:16.04
 
 LABEL maintainer "Hany Harraz <h.harraz@gmail.com>"
 
-LABEL "ProductID"="447aefb5fd1342d5b893f3934dfded73" \
+LABEL "ProductID"="447aefb5fd1342d5b893f3934dfded74" \
       "ProductName"="IBM App Connect Enterprise" \
       "ProductVersion"="11.0.0.0"
 
@@ -19,10 +19,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install ACE V11
-RUN mkdir /opt/ibm && \
+RUN mkdir /opt/ibm
     #curl http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/integration/10.0.0.11-IIB-LINUX64-DEVELOPER.tar.gz \
-    COPY /Users/harrazh/DownloadDirector/ace-11.0.0.0.tar.gz \
-    | tar -xzvf --exclude ace-11.0.0.0/tools --directory /opt/ibm && \
+COPY ace-11.0.0.0.tar.gz /opt/ibm/
+RUN tar -xzvf /opt/ibm/ace-11.0.0.0.tar.gz --exclude /opt/ibm/ace-11.0.0.0/tools --directory /opt/ibm && \
     /opt/ibm/ace-11.0.0.0/ace make registry global accept license silently
 
 #tar -xzvf ace-11.0.0.n.tar.gz --exclude ace-11.0.0.n/tools
@@ -43,20 +43,24 @@ RUN sed -i 's/sha512/sha512 minlen=8/'  /etc/pam.d/common-password && \
     sed -i 's/PASS_MIN_DAYS\t0/PASS_MIN_DAYS\t1/'  /etc/login.defs && \
     sed -i 's/PASS_MAX_DAYS\t99999/PASS_MAX_DAYS\t90/'  /etc/login.defs
 
+RUN mkdir -p /tmp/bars
 # Copy in script files
-COPY iib_manage.sh /usr/local/bin/
-COPY iib-license-check.sh /usr/local/bin/
-COPY iib_env.sh /usr/local/bin/
+COPY ace_manage.sh /usr/local/bin/
+COPY ace-license-check.sh /usr/local/bin/
+COPY ace_env.sh /usr/local/bin/
+COPY ./bars/*.bar /tmp/bars
 RUN chmod +rx /usr/local/bin/*.sh
 
 # Set BASH_ENV to source mqsiprofile when using docker exec bash -c
-ENV BASH_ENV=/usr/local/bin/iib_env.sh
+ENV BASH_ENV=/usr/local/bin/ace_env.sh
 ENV MQSI_MQTT_LOCAL_HOSTNAME=127.0.0.1
+ENV ODBCINI=/opt/ibm/ace-11.0.0.0//server/ODBC/unixodbc/odbc.ini
 
-# Expose default admin port and http port
-EXPOSE 4414 7800
+# Expose default admin port, http port and Web user interface
+#EXPOSE 4414 7800
+EXPOSE 7800 7600
 
 USER iibuser
 
 # Set entrypoint to run management script
-ENTRYPOINT ["iib_manage.sh"]
+ENTRYPOINT ["ace_manage.sh"]

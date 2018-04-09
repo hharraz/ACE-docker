@@ -1,10 +1,11 @@
 #!/bin/bash
-# © Copyright IBM Corporation 2015.
+# © Copyright IBM Corporation 2018.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v1.0
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v10.html
+
 
 if [ "$LICENSE" = "accept" ]; then
 	exit 0
@@ -30,7 +31,7 @@ elif [ "$LICENSE" = "view" ]; then
 		tr*) LICENSE_FILE=Turkish.txt ;;
 		*) LICENSE_FILE=English.txt ;;
 	esac
-	cat /opt/ibm/iib-10.0.0.10/license/$LICENSE_FILE
+	cat /opt/ibm/ace-11.0.0.0/ie02/license/$LICENSE_FILE
 	exit 1
 else
 	echo -e "Set environment variable LICENSE=accept to indicate acceptance of license terms and conditions.\n\nLicense agreements and information can be viewed by running this image with the environment variable LICENSE=view.  You can also set the LANG environment variable to view the license in a different language."

@@ -15,23 +15,21 @@ LABEL "ProductID"="447aefb5fd1342d5b893f3934dfded74" \
 
 # Install curl
 RUN apt-get update && \
-    apt-get install -y curl rsyslog sudo && \
+    apt-get install -y --no-install-recommends --no-upgrade curl rsyslog sudo && \
     rm -rf /var/lib/apt/lists/*
-
 # Install ACE V11
-RUN mkdir /opt/ibm
+RUN mkdir /opt/ibm && mkdir -p /tmp/bars
     #curl http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/integration/10.0.0.11-IIB-LINUX64-DEVELOPER.tar.gz \
 COPY ace-11.0.0.0.tar.gz /opt/ibm/
-RUN tar -xzvf /opt/ibm/ace-11.0.0.0.tar.gz --exclude /opt/ibm/ace-11.0.0.0/tools --directory /opt/ibm && \
-    /opt/ibm/ace-11.0.0.0/ace make registry global accept license silently
 
-#tar -xzvf ace-11.0.0.n.tar.gz --exclude ace-11.0.0.n/tools
+RUN tar -xzvf /opt/ibm/ace-11.0.0.0.tar.gz --exclude /opt/ibm/ace-11.0.0.0/tools --directory /opt/ibm && \
+    /opt/ibm/ace-11.0.0.0/ace make registry global accept license silently && \
+    rm /opt/ibm/ace-11.0.0.0.tar.gz
 
 # Configure system
 RUN echo "ACE_11:" > /etc/debian_chroot  && \
     touch /var/log/syslog && \
     chown syslog:adm /var/log/syslog
-
 
 
 # Create user to run as
@@ -43,7 +41,7 @@ RUN sed -i 's/sha512/sha512 minlen=8/'  /etc/pam.d/common-password && \
     sed -i 's/PASS_MIN_DAYS\t0/PASS_MIN_DAYS\t1/'  /etc/login.defs && \
     sed -i 's/PASS_MAX_DAYS\t99999/PASS_MAX_DAYS\t90/'  /etc/login.defs
 
-RUN mkdir -p /tmp/bars
+
 # Copy in script files
 COPY ace_manage.sh /usr/local/bin/
 COPY ace-license-check.sh /usr/local/bin/

@@ -1,16 +1,16 @@
-<This is a clone from [V10 instructions](https://github.com/ot4i/iib-docker)
+This is a clone from [V10 instructions](https://github.com/ot4i/iib-docker)
 
 
 # Overview
 
-This repository contains a Dockerfile and some scripts which demonstrate a way in which you might run [IBM App Connect Enterprise Bus](https://www.ibm.com/cloud/app-connect/enterprise) in a [Docker](https://www.docker.com/whatisdocker/) container.
+This repository contains a Dockerfile and some scripts which demonstrate a way in which you might run [IBM App Connect Enterprise Bus(ACE)](https://www.ibm.com/cloud/app-connect/enterprise) in a [Docker](https://www.docker.com/whatisdocker/) container.
 
 Please note that at the time of writing the Dockerfile Integration Node is not supported in ACE and expected to be available in an upcoming fixpack
 
 # Work in progress
-A base image of ACE V11 will be created in which it will be used to build other ACE images for bar deployment
+A base image of ACE V11 with only ACE installed (no integration server configuration or test bars deployed)
 
-This repository will also contain a Dockerfile and some scripts which demonstrate a way in which you might run [IBM App Connect Enterprise Bus](https://www.ibm.com/cloud/app-connect/enterprise) with an [IBM MQ] Server(http://www-03.ibm.com/software/products/en/ibm-mq).
+This repository will also contain a Dockerfile and some scripts which demonstrate a way in which you might run [IBM App Connect Enterprise Bus](https://www.ibm.com/cloud/app-connect/enterprise) with an [IBM MQ Server](http://www-03.ibm.com/software/products/en/ibm-mq).
 
 
 # Building the image
@@ -62,7 +62,7 @@ Get container port
 
 ~~~
 docker ps
-~~~~~~
+~~~
 
 ~~~
 curl -X GET http://localhost:<port>/employee/v1/employeeID
@@ -78,9 +78,10 @@ docker run --name myNode -v  /local/path/to/bars:/tmp/bars/<yourbars> -e LICENSE
 
 
 This will run a container that creates and starts an Integration Server called `aceserver` and exposes ports `7600` and `7800` on random ports on the host machine.  At this point you can use:
+
 ~~~
 docker port <container name>
-
+~~~
 
 
 to see which ports have been mapped then connect to the Server's web user interface as normal (see [verification](# Verifying your container is running correctly) section below).

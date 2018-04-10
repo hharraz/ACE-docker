@@ -1,4 +1,4 @@
-<This is a clone from V10 instructions, please do not follow as it's a work in progress>
+<This is a clone from [V10 instructions](https://github.com/ot4i/iib-docker)
 
 
 # Overview

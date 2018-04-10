@@ -17,8 +17,8 @@ LABEL "ProductID"="447aefb5fd1342d5b893f3934dfded74" \
 RUN apt-get update && \
     apt-get install -y --no-install-recommends --no-upgrade curl rsyslog sudo && \
     rm -rf /var/lib/apt/lists/*
-# Install ACE V11
 
+# Install ACE V11
 RUN mkdir /opt/ibm && mkdir -p /tmp/bars
 
 COPY ace-11.0.0.0.tar.gz /opt/ibm/
@@ -41,25 +41,3 @@ RUN useradd --create-home --home-dir /home/iibuser -G mqbrkrs,sudo iibuser && \
 RUN sed -i 's/sha512/sha512 minlen=8/'  /etc/pam.d/common-password && \
     sed -i 's/PASS_MIN_DAYS\t0/PASS_MIN_DAYS\t1/'  /etc/login.defs && \
     sed -i 's/PASS_MAX_DAYS\t99999/PASS_MAX_DAYS\t90/'  /etc/login.defs
-
-
-# Copy in script files
-#COPY *.sh /usr/local/bin/
-#COPY ace_manage.sh /usr/local/bin/
-#COPY ace-license-check.sh /usr/local/bin/
-#COPY ace_env.sh /usr/local/bin/
-#COPY ./bars/*.bar /tmp/bars
-#RUN chmod +rx /usr/local/bin/*.sh
-
-# Set BASH_ENV to source mqsiprofile when using docker exec bash -c
-#ENV BASH_ENV=/usr/local/bin/ace_env.sh
-#ENV MQSI_MQTT_LOCAL_HOSTNAME=127.0.0.1
-#ENV ODBCINI=/opt/ibm/ace-11.0.0.0//server/ODBC/unixodbc/odbc.ini
-
-# Expose default admin port, http port and Web user interface
-#EXPOSE 7800 7600
-
-#USER iibuser
-
-# Set entrypoint to run management script
-#ENTRYPOINT ["ace_manage.sh"]

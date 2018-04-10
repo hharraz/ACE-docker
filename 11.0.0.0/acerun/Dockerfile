@@ -9,7 +9,7 @@ FROM acev11base
 
 LABEL maintainer "Hany Harraz <h.harraz@gmail.com>"
 
-LABEL "ProductID"="447aefb5fd1342d5b893f3934dfded75" \
+LABEL "ProductID"="447aefb5fd1342d5b893f3934dfded77" \
       "ProductName"="IBM App Connect Enterprise" \
       "ProductVersion"="11.0.0.0"
 
@@ -18,7 +18,7 @@ LABEL "ProductID"="447aefb5fd1342d5b893f3934dfded75" \
 COPY ace_manage.sh /usr/local/bin/
 COPY ace-license-check.sh /usr/local/bin/
 COPY ace_env.sh /usr/local/bin/
-COPY ./bars/*.bar /tmp/bars
+#COPY ./bars/*.bar /tmp/bars
 RUN chmod +rx /usr/local/bin/*.sh
 
 # Set BASH_ENV to source mqsiprofile when using docker exec bash -c

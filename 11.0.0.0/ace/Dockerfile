@@ -17,6 +17,7 @@ LABEL "ProductID"="447aefb5fd1342d5b893f3934dfded74" \
 RUN apt-get update && \
     apt-get install -y --no-install-recommends --no-upgrade curl rsyslog sudo && \
     rm -rf /var/lib/apt/lists/*
+    
 # Install ACE V11
 RUN mkdir /opt/ibm && mkdir -p /tmp/bars
     #curl http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/integration/10.0.0.11-IIB-LINUX64-DEVELOPER.tar.gz \
